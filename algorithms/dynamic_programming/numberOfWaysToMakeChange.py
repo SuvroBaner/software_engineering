@@ -18,3 +18,11 @@ print(numberOfWaysToMakeChange(n, denoms))
 n = 10
 denoms = [1, 5, 10, 25]
 print(numberOfWaysToMakeChange(n, denoms))
+
+n = 9
+denoms = [10]
+print(numberOfWaysToMakeChange(n, denoms))
+
+n = 9
+denoms = [5]
+print(numberOfWaysToMakeChange(n, denoms))
