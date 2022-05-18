@@ -14,6 +14,7 @@ class TwoNumberSum:
                     return [numOne, numTwo]
         return []
 
+    # Time : O(nlogn) | Space : O(1)
     def solution2(self):
         self.array.sort()
         leftIdx = 0
@@ -30,6 +31,17 @@ class TwoNumberSum:
                 return [numOne, numTwo]
         return []
 
+    # Time : O(n) | Space : O(n)
+    def solution3(self):
+        num_present_map = {}
+        for numOne in self.array:
+            numTwo = self.targetSum - numOne
+            if numTwo in num_present_map:
+                return [numOne, numTwo]
+            else:
+                num_present_map[numOne] = True
+        return []
+
 
 # Testing the solution -
 
@@ -38,3 +50,4 @@ targetSum = 10
 obj = TwoNumberSum(array, targetSum)
 print(obj.solution1())
 print(obj.solution2())
+print(obj.solution3())
