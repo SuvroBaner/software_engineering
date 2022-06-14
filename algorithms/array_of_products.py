@@ -9,8 +9,6 @@ class ArrayOfProducts:
         for i in range(1, len(self.array)):
             prod = prod * self.array[i-1]
             result[i] = prod
-
-        print(result)
         
         prod = 1
         for i in reversed(range(len(self.array) - 1)):
