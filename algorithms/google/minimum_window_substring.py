@@ -44,37 +44,73 @@
 #         else:
 #             return s[min_window_start_idx: min_window_end_idx + 1]
 
+# class Solution:
+#     # Time : O(n) | Space : O(1)
+#     def minWindow(self, s: str, t: str) -> str:
+#         if t == "": return ""
+
+#         countT, window = {}, {}
+
+#         for c in t:
+#             countT[c] = 1 + countT.get(c, 0)
+
+#         have, need = 0, len(countT)
+#         res, resLen = [-1, -1], float("inf")
+#         l = 0
+#         for r in range(len(s)):
+#             c = s[r]
+#             window[c] = 1 + window.get(c, 0)
+
+#             if c in countT and window[c] == countT[c]:
+#                 have += 1
+
+#             while have == need:
+#                 if (r - l + 1) < resLen:
+#                     res = [l, r]
+#                     resLen = (r - l + 1)
+                
+#                 window[s[l]] -= 1
+#                 if s[l] in countT and window[s[l]] < countT[s[l]]:
+#                     have -= 1
+#                 l += 1
+#         l, r = res
+#         return s[l : r + 1] if resLen != float("inf") else ""
+
+
+from itertools import count
+
+
 class Solution:
     # Time : O(n) | Space : O(1)
     def minWindow(self, s: str, t: str) -> str:
-        if t == "": return ""
-
+        if t == "":
+            return ""
         countT, window = {}, {}
-
-        for c in t:
-            countT[c] = 1 + countT.get(c, 0)
-
-        have, need = 0, len(countT)
-        res, resLen = [-1, -1], float("inf")
-        l = 0
-        for r in range(len(s)):
-            c = s[r]
-            window[c] = 1 + window.get(c, 0)
-
-            if c in countT and window[c] == countT[c]:
-                have += 1
-
+        for ch in t:
+            countT[ch] = 1 + countT.get(ch, 0)
+        have = 0
+        need = len(countT)
+        start = 0
+        result = [-1, -1]
+        min_len = float("inf")
+        for end in range(len(s)):
+            ch = s[end]
+            if ch in countT:
+                window[ch] = 1 + window.get(ch, 0)
+                if window[ch] == countT[ch]:
+                    have += 1
             while have == need:
-                if (r - l + 1) < resLen:
-                    res = [l, r]
-                    resLen = (r - l + 1)
-                
-                window[s[l]] -= 1
-                if s[l] in countT and window[s[l]] < countT[s[l]]:
-                    have -= 1
-                l += 1
-        l, r = res
-        return s[l : r + 1] if resLen != float("inf") else ""
+                window_size = end - start + 1
+                if window_size < min_len:
+                    min_len = window_size
+                    result = [start, end]
+                if s[start] in countT:
+                    if window[s[start]] <= countT[s[start]]:
+                        have -= 1
+                    window[s[start]] -= 1
+                start += 1
+        start, end = result[0], result[1]
+        return s[start : end + 1] if min_len != float("inf") else ""
 
 s = "ADPQCBNART"
 t = "ABC"
