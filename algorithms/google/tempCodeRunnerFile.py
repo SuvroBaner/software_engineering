@@ -1,2 +1,2 @@
-
-time = "16:36"
+s = "abcd"
+words = ['abcd']
