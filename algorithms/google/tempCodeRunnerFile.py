@@ -1,2 +1,2 @@
-s = "abcd"
-words = ['abcd']
+
+        
