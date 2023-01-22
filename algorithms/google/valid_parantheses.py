@@ -28,3 +28,4 @@ s = "()"
 s = "()[]{}"
 sol = Solution()
 print(sol.isValid(s))
+print("This is my new commit")
